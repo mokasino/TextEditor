@@ -23,7 +23,7 @@ private:
 protected:
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnPaint();
-	afx_msg void OnChar(UINT nChar, UINT nRepCnt, UINT nflags);
+	afx_msg void OnChar(UINT nChar, UINT nRepCnt, UINT nFlags);
 	afx_msg LRESULT OnImeChar(WPARAM wParam, LPARAM lParam);
 	afx_msg LRESULT OnImeStartComposition(WPARAM wParam, LPARAM lParam);
 	afx_msg LRESULT OnImeComposition(WPARAM wParam, LPARAM lParam);

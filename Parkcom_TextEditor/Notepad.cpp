@@ -49,13 +49,13 @@ void Notepad::OnPaint() {
 	}
 }
 
-void Notepad::OnChar(UINT nChar, UINT nRepCnt, UINT nflags) {
+void Notepad::OnChar(UINT nChar, UINT nRepCnt, UINT nFlags) {
 	if (nChar >= 32 || nChar == VK_BACK || nChar == VK_RETURN || nChar == VK_TAB) {
 		GlyphFactory glyphFactory;
 		if (nChar != VK_RETURN) {
 			char buffer = nChar;
-			Glyph *single = glyphFactory.Create(&buffer);
-			this->row->Add(single);
+			Glyph *singleByteCharacter = glyphFactory.Create(&buffer);
+			this->row->Add(singleByteCharacter);
 		}
 		else if (nChar == VK_RETURN) {
 			this->row = glyphFactory.Create("\r\n");
