@@ -138,6 +138,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Font.cpp" />
     <ClCompile Include="NotepadApp.cpp" />
     <ClCompile Include="Character.cpp" />
     <ClCompile Include="Composite.cpp" />
@@ -150,6 +151,7 @@
     <ClCompile Include="SingleByteCharacter.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Font.h" />
     <ClInclude Include="NotepadApp.h" />
     <ClInclude Include="Array.h" />
     <ClInclude Include="Character.h" />

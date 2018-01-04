@@ -8,15 +8,10 @@
 #include <string.h>
 
 GlyphFactory::GlyphFactory() {
-
 }
-
 GlyphFactory::GlyphFactory(const GlyphFactory& source) {
-
 }
-
 GlyphFactory::~GlyphFactory() {
-
 }
 
 #include <iostream>

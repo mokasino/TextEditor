@@ -20,6 +20,7 @@ public:
 private:
 	Glyph *paper;
 	Glyph *row;
+	bool isComposition;
 protected:
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnPaint();

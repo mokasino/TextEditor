@@ -2,11 +2,6 @@
 
 #include "Composite.h"
 
-Composite::Composite() : glyphs(capacity) {
-	this->capacity = capacity;
-	this->length = 0;
-}
-
 Composite::Composite(Long capacity) : glyphs(capacity) {
 	this->capacity = capacity;
 	this->length = 0;
@@ -14,6 +9,8 @@ Composite::Composite(Long capacity) : glyphs(capacity) {
 
 Composite::Composite(const Composite& source) 
 : glyphs(source.capacity) {
+	this->glyphs = source.glyphs;
+	this->capacity = source.capacity;
 	Long i = 0;
 	while (i < source.length) {
 		Glyph *glyph = const_cast<Composite&>(source).glyphs.GetAt(i);
@@ -22,6 +19,7 @@ Composite::Composite(const Composite& source)
 		}
 		i++;
 	}
+	this->length = source.length;
 }
 
 Composite::~Composite() {
@@ -30,19 +28,28 @@ Composite::~Composite() {
 		delete this->glyphs[i];
 		i++;
 	}
+	this->length = 0;
 }
 
 Long Composite::Add(Glyph *glyph) {
-	Long ret = -1;
+	Long index = -1;
 	if (this->length < this->capacity) {
-		ret = this->glyphs.Store(this->length, glyph);
+		index = this->glyphs.Store(this->length, glyph);
 	}
 	else {
-		ret = this->glyphs.AppendFromRear(glyph);
+		index = this->glyphs.AppendFromRear(glyph);
 		this->capacity++;
 	}
 	this->length++;
-	return ret;
+	return index;
+}
+
+Long Composite::Remove(Long index) {
+	if (this->glyphs[index] != 0) {
+		delete this->glyphs[index];
+		this->length--;
+	}
+	return -1;
 }
 
 Glyph* Composite::GetAt(Long index) {
@@ -53,7 +60,6 @@ Composite& Composite::operator = (const Composite& source) {
 	Long i = 0;
 	this->glyphs = source.glyphs;
 	this->capacity = source.capacity;
-	this->length = source.length;
 	while (i < source.length) {
 		Glyph *glyph = const_cast<Composite&>(source).glyphs.GetAt(i);
 		if (glyph != 0) {
@@ -61,5 +67,6 @@ Composite& Composite::operator = (const Composite& source) {
 		}
 		i++;
 	}
+	this->length = source.length;
 	return *this;
 }

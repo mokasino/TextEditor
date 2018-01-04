@@ -18,6 +18,7 @@ public:
 	Glyph(const Glyph& source);
 	virtual ~Glyph() = 0;
 	virtual Long Add(Glyph *glyph) { return -1; }
+	virtual Long Remove(Long index) { return -1; }
 	virtual Glyph* GetAt(Long index) { return 0; }
 	virtual Glyph* Clone() = 0;
 	virtual string MakeString() = 0;

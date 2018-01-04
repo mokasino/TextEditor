@@ -16,12 +16,12 @@ typedef signed long int Long;
 
 class Composite : public Glyph {
 public:
-	Composite();
 	Composite(Long capacity = 100000);
 	Composite(const Composite& source);
 	virtual ~Composite() = 0;
 	Composite& operator = (const Composite& source);
 	virtual Long Add(Glyph *glyph);
+	virtual Long Remove(Long index);
 	virtual Glyph* GetAt(Long index);
 	virtual Long GetCapacity() const;
 	virtual Long GetLength() const;

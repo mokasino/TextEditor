@@ -21,7 +21,6 @@ public:
 	SingleByteCharacter& operator = (const SingleByteCharacter& source);
 	bool operator == (const SingleByteCharacter& source);
 	bool operator != (const SingleByteCharacter& source);
-	virtual Long Add(Long index, Glyph *glyph) { return -1; }
 	virtual Glyph* Clone();
 	virtual string MakeString();
 	char GetContent() const;
