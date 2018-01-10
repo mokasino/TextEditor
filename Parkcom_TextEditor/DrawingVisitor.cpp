@@ -4,11 +4,13 @@
 #include "Glyph.h"
 #include "Paper.h"
 #include "Row.h"
+#include "Font.h"
 #include "SmartPointer.h"
 #include <afxwin.h>
 
-DrawingVisitor::DrawingVisitor(CDC *dc) {
+DrawingVisitor::DrawingVisitor(CDC *dc, Font *font) {
 	this->dc = dc;
+	this->font = font;
 }
 DrawingVisitor::DrawingVisitor(const DrawingVisitor& drawingVisitor) {
 }
@@ -21,7 +23,7 @@ void DrawingVisitor::Visit(Paper *paper) {
 	for (iterator->First();!iterator->IsDone();iterator->Next()) {
 		Glyph *row = iterator->CurrentItem();
 		str = row->MakeString();
-		dc->TextOut(0, i * MulDiv(32, GetDeviceCaps(*this->dc, LOGPIXELSY), 72), (CString)(str.c_str()));
+		dc->TextOut(0, i * -this->font->GetLogFont().lfHeight, (CString)(str.c_str()));
 		i++;
 	}
 }

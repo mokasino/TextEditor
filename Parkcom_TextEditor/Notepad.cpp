@@ -30,6 +30,10 @@ END_MESSAGE_MAP()
 Notepad::Notepad() {
 }
 
+void Notepad::Load() {
+
+}
+
 int Notepad::OnCreate(LPCREATESTRUCT lpCreateStruct) {
 	CFrameWnd::OnCreate(lpCreateStruct);
 
@@ -49,7 +53,7 @@ void Notepad::OnPaint() {
 	CFont *cFont;
 	cFont = cFont->FromHandle(hFont);
 	CFont *oldFont = dc.SelectObject(cFont);
-	DrawingVisitor visitor(&dc);
+	DrawingVisitor visitor(&dc, this->font);
 	this->paper->Accept(&visitor);
 	dc.SelectObject(oldFont);
 }
@@ -127,6 +131,10 @@ void Notepad::OnFontMenuClicked() {
 		this->font = new Font(lf);
 	}
 	Invalidate();
+}
+
+void Notepad::Save() {
+
 }
 
 void Notepad::OnClose() {

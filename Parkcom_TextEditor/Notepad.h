@@ -24,6 +24,7 @@ private:
 	BOOL isComposition;
 	Font *font;
 protected:
+	void Load();
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnPaint();
 	afx_msg void OnChar(UINT nChar, UINT nRepCnt, UINT nFlags);
@@ -32,6 +33,7 @@ protected:
 	afx_msg LRESULT OnImeComposition(WPARAM wParam, LPARAM lParam);
 	afx_msg void OnContextMenu(CWnd *pWnd, CPoint cPoint);
 	afx_msg void OnFontMenuClicked();
+	void Save();
 	afx_msg void OnClose();
 	DECLARE_MESSAGE_MAP()
 };
