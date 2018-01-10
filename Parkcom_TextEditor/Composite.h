@@ -11,6 +11,7 @@
 #include "Array.h"
 #include "Glyph.h"
 #include <string>
+
 using namespace std;
 typedef signed long int Long;
 
@@ -23,6 +24,7 @@ public:
 	virtual Long Add(Glyph *glyph);
 	virtual Long Remove(Long index);
 	virtual Glyph* GetAt(Long index);
+	virtual GlyphIterator<Glyph*>* CreateIterator() ;
 	virtual Long GetCapacity() const;
 	virtual Long GetLength() const;
 protected:

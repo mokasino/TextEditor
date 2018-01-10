@@ -10,28 +10,29 @@
 
 #include "Iterator.h"
 #include "Array.h"
+
 typedef signed long int Long;
 
 template <typename T>
 class GlyphIterator :public Iterator<T> {
 public:
 	GlyphIterator();
-	GlyphIterator(const Array<T>* aGlyph);
+	GlyphIterator(Array<T>* aGlyph);
 	virtual void First();
 	virtual void Previous();
 	virtual void Next();
 	virtual bool IsDone() const;
-	virtual T CurrentItem() const;
+	virtual T CurrentItem();
 	//virtual void SkipTo();
 private:
-	const Array<T>* _glyph;
+	Array<T>* _glyph;
 	Long _current;
 };
 template <typename T>
 GlyphIterator<T>::GlyphIterator() : _glyph(0), _current(0) {
 }
 template <typename T>
-GlyphIterator<T>::GlyphIterator(const Array<T>* aGlyph) : _glyph(aGlyph), _current(0) {
+GlyphIterator<T>::GlyphIterator( Array<T>* aGlyph) : _glyph(aGlyph), _current(0) {
 }
 template <typename T>
 void GlyphIterator<T>::First() {
@@ -47,14 +48,14 @@ void GlyphIterator<T>::Next() {
 }
 template <typename T>
 bool GlyphIterator<T>::IsDone() const {
-	return _current >= _glyph->GetCapacity();
+	return _current >= this->_glyph->GetLength();
 }
 template <typename T>
-T GlyphIterator<T>::CurrentItem() const {
+T GlyphIterator<T>::CurrentItem() {
 	if (IsDone()) {
 		//throw IteratorOutOfBounds;
 	}
-	return _glyph->GetAt(_current);
+	return this->_glyph->GetAt(_current);
 }
 
 #endif // !_GLYPHITERATOR_H

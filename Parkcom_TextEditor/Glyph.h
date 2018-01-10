@@ -8,9 +8,13 @@
 #ifndef _GLYPH_H
 #define _GLYPH_H
 
+#include "GlyphIterator.h"
 #include <string>
+
 using namespace std;
 typedef signed long int Long;
+
+class Visitor;
 
 class Glyph {
 public:
@@ -22,6 +26,8 @@ public:
 	virtual Glyph* GetAt(Long index) { return 0; }
 	virtual Glyph* Clone() = 0;
 	virtual string MakeString() = 0;
+	virtual GlyphIterator<Glyph*>* CreateIterator()  { return 0; }
+	virtual void Accept(Visitor *visitor) {}
 	virtual Long GetCapacity() const { return 0; }
 	virtual Long GetLength() const { return -1; }
 };

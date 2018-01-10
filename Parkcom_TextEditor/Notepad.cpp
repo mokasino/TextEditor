@@ -9,8 +9,11 @@
 #include "Composite.h"
 #include "Glyph.h"
 #include "GlyphFactory.h"
+#include "DrawingVisitor.h"
+#include "Font.h"
+#include <afxdlgs.h>
 
-using namespace std;
+#define IDM_FONT 10000
 
 BEGIN_MESSAGE_MAP(Notepad, CFrameWnd)
 	ON_WM_CREATE()
@@ -19,6 +22,8 @@ BEGIN_MESSAGE_MAP(Notepad, CFrameWnd)
 	ON_MESSAGE(WM_IME_CHAR, OnImeChar)
 	ON_MESSAGE(WM_IME_COMPOSITION, OnImeComposition)
 	ON_MESSAGE(WM_IME_STARTCOMPOSITION, OnImeStartComposition)
+	ON_WM_CONTEXTMENU()
+	ON_COMMAND(IDM_FONT, OnFontMenuClicked)
 	ON_WM_CLOSE()
 END_MESSAGE_MAP()
 
@@ -33,23 +38,24 @@ int Notepad::OnCreate(LPCREATESTRUCT lpCreateStruct) {
 	this->row = glyphFactory.Create("\r\n");
 	this->paper->Add(this->row);
 	this->isComposition = TRUE;
+	this->font = new Font("»õ±¼¸²", 32, GetDC());
 	return 0;
 }
 
 void Notepad::OnPaint() {
-	CPaintDC cdc(this);
-	Long rows = this->paper->GetLength();
-	Long i = 0;
-	while (rows > 0 && i < rows) {
-		Glyph *row = this->paper->GetAt(i);
-		string str = row->MakeString();
-		cdc.TextOut(0, i*25, (CString)(str.c_str()));
-		i++;
-	}
+	CPaintDC dc(this);
+	
+	HFONT hFont = this->font->Create();
+	CFont *cFont;
+	cFont = cFont->FromHandle(hFont);
+	CFont *oldFont = dc.SelectObject(cFont);
+	DrawingVisitor visitor(&dc);
+	this->paper->Accept(&visitor);
+	dc.SelectObject(oldFont);
 }
 
 void Notepad::OnChar(UINT nChar, UINT nRepCnt, UINT nFlags) {
-	if (nChar >= 32 || nChar == VK_BACK || nChar == VK_RETURN || nChar == VK_TAB) {
+	if (nChar >= 32 || nChar == VK_RETURN || nChar == VK_TAB) {
 		GlyphFactory glyphFactory;
 		if (nChar != VK_RETURN) {
 			char buffer = nChar;
@@ -102,7 +108,31 @@ LRESULT Notepad::OnImeStartComposition(WPARAM wParam, LPARAM lParam) {
 	return 0;
 }
 
+void Notepad::OnContextMenu(CWnd *pWnd, CPoint cPoint) {
+	CMenu menu;
+	menu.CreatePopupMenu();
+	menu.AppendMenu(MF_STRING | MF_ENABLED, IDM_FONT, "±Û²Ã");
+	menu.TrackPopupMenu(TPM_LEFTALIGN | TPM_RIGHTBUTTON, cPoint.x, cPoint.y, this);
+	menu.DestroyMenu();
+}
+
+void Notepad::OnFontMenuClicked() {
+	LOGFONT lf = this->font->GetLogFont();
+	CFontDialog dlg(&lf);
+	if (dlg.DoModal() == IDOK) {
+		if (this->font != NULL) {
+			delete this->font;
+		}
+		dlg.GetCurrentFont(&lf);
+		this->font = new Font(lf);
+	}
+	Invalidate();
+}
+
 void Notepad::OnClose() {
+	if (this->font != NULL) {
+		delete this->font;
+	}
 	if (this->paper != NULL) {
 		delete this->paper;
 	}

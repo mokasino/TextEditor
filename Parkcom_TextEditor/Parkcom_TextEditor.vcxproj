@@ -138,6 +138,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DrawingVisitor.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="NotepadApp.cpp" />
     <ClCompile Include="Character.cpp" />
@@ -149,8 +150,10 @@
     <ClCompile Include="Paper.cpp" />
     <ClCompile Include="Row.cpp" />
     <ClCompile Include="SingleByteCharacter.cpp" />
+    <ClCompile Include="Visitor.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DrawingVisitor.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="NotepadApp.h" />
     <ClInclude Include="Array.h" />
@@ -166,6 +169,7 @@
     <ClInclude Include="Row.h" />
     <ClInclude Include="SingleByteCharacter.h" />
     <ClInclude Include="SmartPointer.h" />
+    <ClInclude Include="Visitor.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

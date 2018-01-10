@@ -20,8 +20,8 @@ public:
 private:
 	// _i를 여러 번 삭제하는 것을 방지하기 위해서
 	// 복사와 할당을 허용하지 않습니다.
-	SmartPointer(const SmartPointer&) {}
-	SmartPointer& operator = (const SmartPointer&) {}
+	SmartPointer(const SmartPointer& ptr) {}
+	SmartPointer& operator = (const SmartPointer& ptr) {}
 private:
 	Iterator<T>* _i;
 };

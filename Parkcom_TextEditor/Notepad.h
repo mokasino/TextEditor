@@ -9,18 +9,20 @@
 #define _NOTEPAD_H
 
 #include <afxwin.h>
-using namespace std;
 
 typedef signed long int Long;
 
 class Glyph;
+class Font;
+
 class Notepad : public CFrameWnd {
 public:
 	Notepad();
 private:
 	Glyph *paper;
 	Glyph *row;
-	bool isComposition;
+	BOOL isComposition;
+	Font *font;
 protected:
 	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnPaint();
@@ -28,6 +30,8 @@ protected:
 	afx_msg LRESULT OnImeChar(WPARAM wParam, LPARAM lParam);
 	afx_msg LRESULT OnImeStartComposition(WPARAM wParam, LPARAM lParam);
 	afx_msg LRESULT OnImeComposition(WPARAM wParam, LPARAM lParam);
+	afx_msg void OnContextMenu(CWnd *pWnd, CPoint cPoint);
+	afx_msg void OnFontMenuClicked();
 	afx_msg void OnClose();
 	DECLARE_MESSAGE_MAP()
 };

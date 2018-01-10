@@ -3,6 +3,7 @@
 #include "Row.h"
 #include "SingleByteCharacter.h"
 #include "DoubleByteCharacter.h"
+#include "Visitor.h"
 #include <iostream>
 using namespace std;
 
@@ -32,6 +33,10 @@ string Row::MakeString() {
 		i++;
 	}
 	return str;
+}
+
+void Row::Accept(Visitor *visitor) {
+	visitor->Visit(this);
 }
 
 Row& Row::operator = (const Row& source) {

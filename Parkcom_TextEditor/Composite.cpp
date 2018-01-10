@@ -56,6 +56,10 @@ Glyph* Composite::GetAt(Long index) {
 	return this->glyphs[index];
 }
 
+GlyphIterator<Glyph*>* Composite::CreateIterator() {
+	return new GlyphIterator<Glyph*>(&this->glyphs);
+}
+
 Composite& Composite::operator = (const Composite& source) {
 	Long i = 0;
 	this->glyphs = source.glyphs;

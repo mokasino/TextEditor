@@ -10,6 +10,7 @@
 
 #include "Composite.h"
 #include <string>
+
 using namespace std;
 typedef signed long int Long;
 
@@ -23,6 +24,7 @@ public:
 	Paper& operator = (const Paper& source);
 	virtual Glyph* Clone();
 	virtual string MakeString();
+	virtual void Accept(Visitor *visitor);
 };
 
 #endif // !_PAPER_H

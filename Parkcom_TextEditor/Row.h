@@ -10,9 +10,11 @@
 
 #include "Composite.h"
 #include <string>
+
 using namespace std;
 typedef signed long int Long;
 
+class CDC;
 class Glyph;
 
 class Row : public Composite {
@@ -23,6 +25,7 @@ public:
 	Row& operator = (const Row& source);
 	virtual Glyph* Clone();
 	virtual string MakeString();
+	virtual void Accept(Visitor *visitor);
 };
 
 #endif // !_ROW_H

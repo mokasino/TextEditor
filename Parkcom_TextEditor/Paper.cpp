@@ -2,6 +2,7 @@
 
 #include "Paper.h"
 #include "Row.h"
+#include "Visitor.h"
 #include <iostream>
 using namespace std;
 
@@ -31,6 +32,10 @@ string Paper::MakeString() {
 		i++;
 	}
 	return str;
+}
+
+void Paper::Accept(Visitor *visitor) {
+	visitor->Visit(this);
 }
 
 Paper& Paper::operator = (const Paper& source) {

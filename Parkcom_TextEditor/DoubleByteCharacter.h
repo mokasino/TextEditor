@@ -10,6 +10,7 @@
 
 #include "Character.h"
 #include <string>
+
 using namespace std;
 
 class DoubleByteCharacter : public Character {
